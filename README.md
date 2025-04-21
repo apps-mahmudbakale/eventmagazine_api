@@ -150,6 +150,188 @@ The Authentication Service provides secure user management with features such as
 ````
 + Errors:
     + ```401 Unauthorized```: Invalid email or password.
+      Endpoints
+1. Create a Magazine
+
+   Method: POST
+
+   Endpoint: /magazines
+
+   Description: Creates a new magazine.
+
+   Request Body:
+   json
+
+   {
+   "name": "string",
+   "category": "string",
+   "type": "pdf | images | video",
+   "status": "free | paid",
+   "amount": number (optional, required if status is "paid")
+   }
+
+   Response:
+
+        Status: 201 Created
+
+        Body:
+        json
+
+        {
+          "id": number,
+          "name": "string",
+          "category": "string",
+          "type": "string",
+          "status": "string",
+          "amount": number | null
+        }
+
+   Example:
+   bash
+
+   curl -X POST http://localhost:3000/magazines \
+   -H "Content-Type: application/json" \
+   -d '{"name":"Tech Weekly","category":"Technology","type":"pdf","status":"paid","amount":9.99}'
+
+2. Get All Magazines
+
+   Method: GET
+
+   Endpoint: /magazines
+
+   Description: Retrieves a list of all magazines.
+
+   Response:
+
+        Status: 200 OK
+
+        Body:
+        json
+
+        [
+          {
+            "id": number,
+            "name": "string",
+            "category": "string",
+            "type": "string",
+            "status": "string",
+            "amount": number | null
+          },
+          ...
+        ]
+
+   Example:
+   bash
+
+   curl http://localhost:3000/magazines
+
+3. Get a Magazine by ID
+
+   Method: GET
+
+   Endpoint: /magazines/:id
+
+   Description: Retrieves a single magazine by its ID.
+
+   Parameters:
+
+        id: number (path parameter)
+
+   Response:
+
+        Status: 200 OK
+
+        Body:
+        json
+
+        {
+          "id": number,
+          "name": "string",
+          "category": "string",
+          "type": "string",
+          "status": "string",
+          "amount": number | null
+        }
+
+        Error: 404 Not Found if magazine does not exist
+
+   Example:
+   bash
+
+   curl http://localhost:3000/magazines/1
+
+4. Update a Magazine
+
+   Method: PUT
+
+   Endpoint: /magazines/:id
+
+   Description: Updates an existing magazine by its ID.
+
+   Parameters:
+
+        id: number (path parameter)
+
+   Request Body:
+   json
+
+   {
+   "name": "string",
+   "category": "string",
+   "type": "pdf | images | video",
+   "status": "free | paid",
+   "amount": number (optional, required if status is "paid")
+   }
+
+   Response:
+
+        Status: 200 OK
+
+        Body:
+        json
+
+        {
+          "id": number,
+          "name": "string",
+          "category": "string",
+          "type": "string",
+          "status": "string",
+          "amount": number | null
+        }
+
+        Error: 404 Not Found if magazine does not exist
+
+   Example:
+   bash
+
+   curl -X PUT http://localhost:3000/magazines/1 \
+   -H "Content-Type: application/json" \
+   -d '{"name":"Tech Monthly","category":"Technology","type":"pdf","status":"free"}'
+
+5. Delete a Magazine
+
+   Method: DELETE
+
+   Endpoint: /magazines/:id
+
+   Description: Deletes a magazine by its ID.
+
+   Parameters:
+
+        id: number (path parameter)
+
+   Response:
+
+        Status: 200 OK
+
+        Body: Empty
+
+        Error: 404 Not Found if magazine does not exist
+
+   Example:
+   bash
+
+   curl -X DELETE http://localhost:3000/magazines/1
 
 ## Support
 
